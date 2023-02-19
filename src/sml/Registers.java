@@ -16,10 +16,15 @@ public final class Registers {
         EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI;
     }
 
+
     public Registers() {
         clear(); // the class is final
     }
 
+    /**
+     * Populates the HashMap<> registers with the Register
+     * and resets the stored value in each register to 0.
+     */
     public void clear() {
         for (Register register : Register.values())
             registers.put(register, 0);
