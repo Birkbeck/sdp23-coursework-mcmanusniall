@@ -15,8 +15,13 @@ public class Main {
 		}
 
 		try {
+			// Creates a new Translator Object
 			Translator t = new Translator(args[0]);
+			// Creates a new Machine Object
 			Machine m = new Machine(new Registers());
+			// Executes Translator.readAndTranslate method with the Labels object
+			// - a HashMap<String, Integer> and the Instruction list (m.getLabels())
+			// - a List<> containing all Instruction objects (m.getProgram())
 			t.readAndTranslate(m.getLabels(), m.getProgram());
 
 			System.out.println("Here is the program; it has " + m.getProgram().size() + " instructions.");

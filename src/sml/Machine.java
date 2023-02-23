@@ -45,18 +45,32 @@ public final class Machine {
 		}
 	}
 
+	/**
+	 * Returns Labels object with field labels - a HashMap<String, Integer>
+	 * object where the String object refers to the label e.g. ":f3" and
+	 * the Integer object refers to the position of the instruction e.g. [0] is the first label.
+	 * @return Labels object containing all the labels.
+	 */
 	public Labels getLabels() {
 		return this.labels;
 	}
 
+	/**
+	 * Returns the List<> containing all Instruction objects defined in the program.
+	 * @return List<> object containing all the Instructions.
+	 */
 	public List<Instruction> getProgram() {
 		return this.program;
 	}
 
+	/**
+	 * Returns the Registers object with field registers - a HashMap<Register, Integer>
+	 * object where Register is the register and the Integer is the value the register contains.
+	 * @return Registers object containing all the registers.
+	 */
 	public Registers getRegisters() {
 		return this.registers;
 	}
-
 
 	/**
 	 * String representation of the program under execution.
