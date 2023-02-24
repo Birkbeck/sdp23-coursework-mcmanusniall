@@ -103,9 +103,22 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testSubtractTwoRegisters() {
-
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        registers.set(resultRegisterName, 2);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        registers.set(sourceRegisterName, 7);
+        // Create Add Instruction
+        Instruction subtractInstruction = new sml.instruction.SubtractInstruction("", resultRegisterName, sourceRegisterName);
+        subtractInstruction.execute(m);
+        // Test
+        assertEquals(-5, registers.get(resultRegisterName));
     }
-
 
     @org.junit.jupiter.api.Test
     public void testPrintRegisterContents() {
