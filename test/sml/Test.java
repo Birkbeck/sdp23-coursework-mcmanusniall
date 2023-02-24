@@ -65,16 +65,29 @@ class Test {
     }
 
     @org.junit.jupiter.api.Test
+    public void testDivideTwoRegisters() {
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        registers.set(resultRegisterName, 100);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        registers.set(sourceRegisterName, 5);
+        // Create Add Instruction
+        Instruction divideInstruction = new sml.instruction.DivideInstruction("", resultRegisterName, sourceRegisterName);
+        divideInstruction.execute(m);
+        // Test
+        assertEquals(20, registers.get(resultRegisterName));
+    }
+
+    @org.junit.jupiter.api.Test
     public void testSubtractTwoRegisters() {
 
     }
 
-
-
-    @org.junit.jupiter.api.Test
-    public void testDivideTwoRegisters() {
-
-    }
 
     @org.junit.jupiter.api.Test
     public void testPrintRegisterContents() {
