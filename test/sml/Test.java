@@ -29,7 +29,22 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testAddTwoRegisters() {
-
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        Instruction firstInstruction = new sml.instruction.MoveInstruction("", resultRegisterName, 2);
+        firstInstruction.execute(m);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        Instruction secondInstruction = new sml.instruction.MoveInstruction("", sourceRegisterName, 7);
+        secondInstruction.execute(m);
+        // Create Add Instruction
+        Instruction addInstruction = new sml.instruction.AddInstruction("", resultRegisterName, sourceRegisterName);
+        addInstruction.execute(m);
+        // Test
+        Registers registers = m.getRegisters();
+        assertEquals(9, registers.get(resultRegisterName));
     }
 
     @org.junit.jupiter.api.Test
