@@ -82,7 +82,11 @@ public final class Translator {
                 String s = scan();
                 return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-
+            case DivideInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
 
             // TODO: add code for all other types of instructions
 

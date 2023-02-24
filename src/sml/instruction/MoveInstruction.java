@@ -26,7 +26,7 @@ public class MoveInstruction extends Instruction {
         } catch(Exception e){
             e.printStackTrace(System.out);
         }
-        return NORMAL_PROGRAM_COUNTER_UPDATE + 1;
+        return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
     @Override

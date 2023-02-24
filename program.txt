@@ -1,6 +1,8 @@
 mov EAX 6
 mov EAX 2
-mov ECX 1
+mov ECX 0
+div EAX ECX
+mov ECX 8
 f3: mul EBX EAX
 sub EAX ECX
 jnz EAX f3

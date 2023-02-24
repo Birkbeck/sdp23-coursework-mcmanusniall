@@ -84,6 +84,24 @@ class Test {
     }
 
     @org.junit.jupiter.api.Test
+    public void testDivideTwoRegistersWhenOneContainsZero() {
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        registers.set(resultRegisterName, 0);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        registers.set(sourceRegisterName, 5);
+        // Create Add Instruction
+        Instruction divideInstruction = new sml.instruction.DivideInstruction("", resultRegisterName, sourceRegisterName);
+        // Test
+        assertThrows(ArithmeticException.class, () -> divideInstruction.execute(m));
+    }
+
+    @org.junit.jupiter.api.Test
     public void testSubtractTwoRegisters() {
 
     }
