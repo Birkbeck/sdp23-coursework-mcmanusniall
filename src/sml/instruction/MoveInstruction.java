@@ -20,15 +20,18 @@ public class MoveInstruction extends Instruction {
 
     @Override
     public int execute(Machine m) {
-        int value1 = m.getRegisters().get(result);
-        int value2 = m.getRegisters().get(source);
-        m.getRegisters().set(result, value1 + value2);
-        return NORMAL_PROGRAM_COUNTER_UPDATE;
+        try {
+            m.getRegisters().set(result, value);
+            return NORMAL_PROGRAM_COUNTER_UPDATE;
+        } catch(Exception e){
+            e.printStackTrace(System.out);
+        }
+        return NORMAL_PROGRAM_COUNTER_UPDATE + 1;
     }
 
     @Override
     public String toString() {
-        return getLabelString() + getOpcode() + " " + result + " " + source;
+        return getLabelString() + getOpcode() + " " + result + " " + value;
     }
 
     @Override
