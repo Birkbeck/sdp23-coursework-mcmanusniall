@@ -31,19 +31,18 @@ class Test {
     public void testAddTwoRegisters() {
         // Create a Machine to execute the instructions.
         Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
         // Populate result register with Integer.
         Registers.Register resultRegisterName = Registers.Register.EAX;
-        Instruction firstInstruction = new sml.instruction.MoveInstruction("", resultRegisterName, 2);
-        firstInstruction.execute(m);
+        registers.set(resultRegisterName, 2);
         // Populate source register with Integer.
         Registers.Register sourceRegisterName = Registers.Register.ECX;
-        Instruction secondInstruction = new sml.instruction.MoveInstruction("", sourceRegisterName, 7);
-        secondInstruction.execute(m);
+        registers.set(sourceRegisterName, 7);
         // Create Add Instruction
         Instruction addInstruction = new sml.instruction.AddInstruction("", resultRegisterName, sourceRegisterName);
         addInstruction.execute(m);
         // Test
-        Registers registers = m.getRegisters();
         assertEquals(9, registers.get(resultRegisterName));
     }
 
