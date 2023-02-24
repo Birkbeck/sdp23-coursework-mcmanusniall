@@ -2,14 +2,17 @@ package sml;
 
 // TODO: write a JavaDoc for the class
 
+import java.util.Objects;
+
 /**
  * Represents an abstract instruction.
  *
- * @author ...
+ * @author Niall McManus
  */
 public abstract class Instruction {
 	protected final String label;
 	protected final String opcode;
+	public static int NORMAL_PROGRAM_COUNTER_UPDATE = -1;
 
 	/**
 	 * Constructor: an instruction with a label and an opcode
@@ -31,8 +34,6 @@ public abstract class Instruction {
 		return opcode;
 	}
 
-	public static int NORMAL_PROGRAM_COUNTER_UPDATE = -1;
-
 	/**
 	 * Executes the instruction in the given machine.
 	 *
@@ -48,9 +49,13 @@ public abstract class Instruction {
 	}
 
 	// What does abstract in the declaration below mean?
-	//
+	// The responsibility of the implementation of the method is placed on the subclass.
+	// The subclass can implement the method using the @Override tag.
 	@Override
 	public abstract String toString();
 
-	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+	@Override
+	public abstract int hashCode();
+
+	public abstract boolean equals();
 }
