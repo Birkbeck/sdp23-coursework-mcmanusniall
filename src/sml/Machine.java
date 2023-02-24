@@ -39,7 +39,7 @@ public final class Machine {
 		while (programCounter < program.size()) { // while there are instructions in the ArrayList<Instruction>.
 			Instruction ins = program.get(programCounter); //use the program counter as an index to fetch the instructions in sequence.
 			int programCounterUpdate = ins.execute(this); // execute the instruction.
-			programCounter = (programCounterUpdate == NORMAL_PROGRAM_COUNTER_UPDATE) // if the programCounterUpdate is equal to -1.
+			programCounter = (programCounterUpdate == NORMAL_PROGRAM_COUNTER_UPDATE) // if the programCounterUpdate is equal to NORMAL_PROGRAM_COUNTER_UPDATE
 				? programCounter + 1 // add one to the program counter.
 				: programCounterUpdate; // else program counter equals the value of programCounterUpdate.
 		}
