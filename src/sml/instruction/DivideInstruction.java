@@ -21,7 +21,7 @@ public class DivideInstruction extends Instruction {
         int value1 = m.getRegisters().get(result);
         int value2 = m.getRegisters().get(source);
         if(value1 == 0 || value2 == 0){
-            System.out.println("Unable to execute command - / by zero. Please rewrite the program with legal instructions.");
+            System.out.println("Unable to execute command \"" + this.toString() + "\" - / by zero. Please rewrite the program with legal instructions.");
             throw new ArithmeticException();
         }
         else {

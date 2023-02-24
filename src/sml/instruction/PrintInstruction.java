@@ -22,7 +22,8 @@ public class PrintInstruction extends Instruction {
 
     @Override
     public int execute(Machine m) {
-        System.out.println(source.name() + " - " + m.getRegisters().get(source));
+        String message = source.name() + " - " + m.getRegisters().get(source);
+        System.out.println(message);
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 

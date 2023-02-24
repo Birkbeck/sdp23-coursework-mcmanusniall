@@ -1,6 +1,7 @@
 package sml;
 
 import org.junit.jupiter.api.BeforeEach;
+import sml.instruction.PrintInstruction;
 
 import java.io.IOException;
 
@@ -76,7 +77,7 @@ class Test {
         // Populate source register with Integer.
         Registers.Register sourceRegisterName = Registers.Register.ECX;
         registers.set(sourceRegisterName, 5);
-        // Create Add Instruction
+        // Create Divide Instruction
         Instruction divideInstruction = new sml.instruction.DivideInstruction("", resultRegisterName, sourceRegisterName);
         divideInstruction.execute(m);
         // Test
@@ -95,7 +96,7 @@ class Test {
         // Populate source register with Integer.
         Registers.Register sourceRegisterName = Registers.Register.ECX;
         registers.set(sourceRegisterName, 5);
-        // Create Add Instruction
+        // Create Divide Instruction
         Instruction divideInstruction = new sml.instruction.DivideInstruction("", resultRegisterName, sourceRegisterName);
         // Test
         assertThrows(ArithmeticException.class, () -> divideInstruction.execute(m));
@@ -113,7 +114,7 @@ class Test {
         // Populate source register with Integer.
         Registers.Register sourceRegisterName = Registers.Register.ECX;
         registers.set(sourceRegisterName, 7);
-        // Create Add Instruction
+        // Create Subtract Instruction
         Instruction subtractInstruction = new sml.instruction.SubtractInstruction("", resultRegisterName, sourceRegisterName);
         subtractInstruction.execute(m);
         // Test
@@ -122,7 +123,17 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testPrintRegisterContents() {
-
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.EAX;
+        registers.set(sourceRegisterName, 2);
+        // Create Add Instruction
+        Instruction printInstruction = new sml.instruction.PrintInstruction("", sourceRegisterName);
+        printInstruction.execute(m);
+        // TODO: Add assertion.
     }
 
     @org.junit.jupiter.api.Test
