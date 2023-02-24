@@ -80,7 +80,7 @@ public final class Translator {
             case MultiplyInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
-                return new MultiplyInstruction((label, Register.valueOf(r), Register.valueOf(s));
+                return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
 
 

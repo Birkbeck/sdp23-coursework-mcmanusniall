@@ -45,16 +45,31 @@ class Test {
         // Test
         assertEquals(9, registers.get(resultRegisterName));
     }
+    @org.junit.jupiter.api.Test
+    public void testMultiplyTwoRegisters() {
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        registers.set(resultRegisterName, 10);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        registers.set(sourceRegisterName, 7);
+        // Create Add Instruction
+        Instruction multiplyInstruction = new sml.instruction.MultiplyInstruction("", resultRegisterName, sourceRegisterName);
+        multiplyInstruction.execute(m);
+        // Test
+        assertEquals(70, registers.get(resultRegisterName));
+    }
 
     @org.junit.jupiter.api.Test
     public void testSubtractTwoRegisters() {
 
     }
 
-    @org.junit.jupiter.api.Test
-    public void testMultiplyTwoRegisters() {
 
-    }
 
     @org.junit.jupiter.api.Test
     public void testDivideTwoRegisters() {
