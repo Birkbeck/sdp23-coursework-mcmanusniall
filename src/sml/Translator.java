@@ -77,6 +77,11 @@ public final class Translator {
                 Integer value = Integer.parseInt(scan());
                 return new MoveInstruction(label, Register.valueOf(r), value);
             }
+            case MultiplyInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new MultiplyInstruction((label, Register.valueOf(r), Register.valueOf(s));
+            }
 
 
             // TODO: add code for all other types of instructions
