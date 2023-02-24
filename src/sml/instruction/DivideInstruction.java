@@ -20,13 +20,18 @@ public class DivideInstruction extends Instruction {
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);
         int value2 = m.getRegisters().get(source);
-        if(value1 == 0 || value2 == 0){
-            System.out.println("Unable to execute. Invalid division by 0.");
-            return NORMAL_PROGRAM_COUNTER_UPDATE + 1;
-        } else {
+        try {
             m.getRegisters().set(result, value1 / value2);
             return NORMAL_PROGRAM_COUNTER_UPDATE;
+        } catch (RuntimeException e) {
+            if (value1 == 0 || value2 == 0) {
+                System.out.println("Unable to execute. Invalid division by 0.");
+                e.printStackTrace(System.out);
+            } else {
+                e.printStackTrace(System.out);
+            }
         }
+        return NORMAL_PROGRAM_COUNTER_UPDATE + 1;
     }
 
     @Override
