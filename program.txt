@@ -2,3 +2,5 @@ mov EAX 6
 mov EBX 2
 mov ECX 6
 f3: mul EBX EAX
+mov EBP 8
+add EBP EBX
