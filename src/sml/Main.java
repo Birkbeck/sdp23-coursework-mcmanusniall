@@ -28,7 +28,11 @@ public class Main {
 			System.out.println(m);
 
 			System.out.println("Beginning program execution.");
-			m.execute();
+			try { m.execute(); }
+			catch(Exception e) {
+				System.out.println("Please revise your SML program before attempting to rerun.");
+			}
+
 			System.out.println("Ending program execution.");
 
 			System.out.println("Values of registers at program termination:" + m.getRegisters() + ".");
