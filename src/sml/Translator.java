@@ -96,6 +96,11 @@ public final class Translator {
                 String s = scan();
                 return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
+            case JumpIfNotZeroInstruction.OP_CODE -> {
+                String s = scan();
+                String instructionLabel = scan();
+                return new JumpIfNotZeroInstruction(label, Register.valueOf(s), instructionLabel);
+            }
 
             // TODO: add code for all other types of instructions
 
