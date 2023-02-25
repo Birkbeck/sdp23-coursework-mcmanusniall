@@ -21,7 +21,10 @@ public final class Labels {
 	 */
 	public void addLabel(String label, int address) {
 		Objects.requireNonNull(label);
-		// TODO: Add a check that there are no label duplicates.
+		if(labels.get(label) != null) {
+			System.out.println(label + " is already associated with another Instruction. " + "Please revise the SML program");
+			System.exit(1);
+		}
 		labels.put(label, address);
 	}
 
@@ -31,15 +34,21 @@ public final class Labels {
 	 * @param label the label
 	 * @return the address the label refers to
 	 */
-	public int getAddress(String label) {
+	public int getAddress(String label) throws RuntimeException {
 		// Where can NullPointerException be thrown here?
 		// When the String label argument that is passed does not exist in the Labels HashMap,
 		// a java.lang.NullPointerException is thrown.
 		// e.g. java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()"
 		// because the return value of "java.util.Map.get(Object)" is null
-		try { return labels.get(label); }
+		try{
+			return labels.get(label);
+		}
 		catch(NullPointerException e) {
-			System.out.println("Instruction labelled " + label + " does not exist. Please revise the SML program.");
+			System.out.println("Error: Instruction labelled " + label + " does not exist.");
+			throw e;
+		}
+		catch(RuntimeException e) {
+			System.out.println("Error: An unexpected error has occurred.");
 			throw e;
 		}
 	}
