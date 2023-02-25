@@ -32,10 +32,16 @@ public final class Labels {
 	 * @return the address the label refers to
 	 */
 	public int getAddress(String label) {
-		// TODO: Where can NullPointerException be thrown here?
-		//       (Write an explanation.)
-		//       Add code to deal with non-existent labels.
-		return labels.get(label);
+		// Where can NullPointerException be thrown here?
+		// When the String label argument that is passed does not exist in the Labels HashMap,
+		// a java.lang.NullPointerException is thrown.
+		// e.g. java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()"
+		// because the return value of "java.util.Map.get(Object)" is null
+		try { return labels.get(label); }
+		catch(NullPointerException e) {
+			System.out.println("Instruction labelled " + label + " does not exist. Please revise the SML program.");
+			throw e;
+		}
 	}
 
 	/**
