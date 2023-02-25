@@ -20,13 +20,12 @@ public class DivideInstruction extends Instruction {
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);
         int value2 = m.getRegisters().get(source);
-        if(value1 == 0 || value2 == 0){
-            System.out.println("Unable to execute command \"" + this.toString() + "\" - / by zero. " +
-                                "Please rewrite the program with legal instructions.");
-            throw new ArithmeticException();
-        }
-        else {
+        try {
             m.getRegisters().set(result, value1 / value2);
+        }
+        catch(ArithmeticException e) {
+            System.out.println("Unable to execute command \"" + this.toString() + "\" - / by zero. ");
+            throw e;
         }
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
