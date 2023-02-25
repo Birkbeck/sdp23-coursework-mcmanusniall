@@ -62,7 +62,7 @@ public final class Translator {
      * with its label already removed.
      */
     private Instruction getInstruction(String label) {
-        if (line.isEmpty())
+        if(line.isEmpty())
             return null;
 
         String opcode = scan();
@@ -117,9 +117,8 @@ public final class Translator {
 
     private String getLabel() {
         String word = scan();
-        if (word.endsWith(":"))
+        if(word.endsWith(":"))
             return word.substring(0, word.length() - 1);
-
         // undo scanning the word
         line = word + " " + line;
         return null;
@@ -132,13 +131,12 @@ public final class Translator {
     private String scan() {
         line = line.trim();
 
-        for (int i = 0; i < line.length(); i++)
+        for(int i = 0; i < line.length(); i++)
             if (Character.isWhitespace(line.charAt(i))) {
                 String word = line.substring(0, i);
                 line = line.substring(i);
                 return word;
             }
-
         return line;
     }
 }
