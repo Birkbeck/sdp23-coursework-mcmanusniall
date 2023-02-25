@@ -4,3 +4,5 @@ mov ECX 6
 f3: mul EBX EAX
 mov EBP 8
 add EBP EBX
+jnz EAX f2
+mov EDI 8

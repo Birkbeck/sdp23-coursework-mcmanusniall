@@ -22,9 +22,9 @@ public class MoveInstruction extends Instruction {
     public int execute(Machine m) {
         try {
             m.getRegisters().set(result, value);
-            return NORMAL_PROGRAM_COUNTER_UPDATE;
         } catch(Exception e){
-            e.printStackTrace(System.out);
+            System.out.println("Error: An unexpected error has occurred.");
+            throw e;
         }
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }

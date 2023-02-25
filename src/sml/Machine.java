@@ -47,7 +47,7 @@ public final class Machine {
 						: programCounterUpdate; // else program counter equals the value of programCounterUpdate.
 			}
 			else { programCounter = programCounter + 1; }
-
+			// TODO: check code formatting
 		}
 	}
 
@@ -94,8 +94,7 @@ public final class Machine {
 	// https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Machine) {
-			// TODO:
+		if(o instanceof Machine) {
 			Machine other = (Machine) o;
 			return Objects.equals(this.labels, other.labels)
 					&& Objects.equals(this.program, other.program)

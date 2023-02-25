@@ -34,7 +34,7 @@ public final class Labels {
 	 * @param label the label
 	 * @return the address the label refers to
 	 */
-	public int getAddress(String label) throws RuntimeException {
+	public int getAddress(String label) {
 		// Where can NullPointerException be thrown here?
 		// When the String label argument that is passed does not exist in the Labels HashMap,
 		// a java.lang.NullPointerException is thrown.

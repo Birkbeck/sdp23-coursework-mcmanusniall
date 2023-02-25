@@ -33,18 +33,18 @@ public final class Translator {
     // TODO: add JavaDoc comments
 
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
-        try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
+        try(var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
             program.clear();
 
             // Each iteration processes line and reads the next input line into "line"
-            while (sc.hasNextLine()) {
+            while(sc.hasNextLine()) {
                 line = sc.nextLine();
                 String label = getLabel();
 
                 Instruction instruction = getInstruction(label);
-                if (instruction != null) {
-                    if (label != null)
+                if(instruction != null) {
+                    if(label != null)
                         labels.addLabel(label, program.size());
                     program.add(instruction);
                 }
@@ -66,7 +66,7 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        switch (opcode) {
+        switch(opcode) {
             case AddInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
