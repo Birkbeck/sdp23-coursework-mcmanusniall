@@ -38,10 +38,16 @@ public final class Machine {
 		registers.clear(); // resets the values of all registers to 0.
 		while (programCounter < program.size()) { // while there are instructions in the ArrayList<Instruction>.
 			Instruction ins = program.get(programCounter); //use the program counter as an index to fetch the instructions in sequence.
-			int programCounterUpdate = ins.execute(this); // execute the instruction.
-			programCounter = (programCounterUpdate == NORMAL_PROGRAM_COUNTER_UPDATE) // if the programCounterUpdate is equal to NORMAL_PROGRAM_COUNTER_UPDATE
-				? programCounter + 1 // add one to the program counter.
-				: programCounterUpdate; // else program counter equals the value of programCounterUpdate.
+			// Add if statement that avoid executing a labelled instruction when read.
+			// Labelled instructions should only be executed from within a jnz command.
+			if(ins.label == null) {
+				int programCounterUpdate = ins.execute(this);
+				programCounter = (programCounterUpdate == NORMAL_PROGRAM_COUNTER_UPDATE) // if the programCounterUpdate is equal to NORMAL_PROGRAM_COUNTER_UPDATE
+						? programCounter + 1 // add one to the program counter.
+						: programCounterUpdate; // else program counter equals the value of programCounterUpdate.
+			}
+			else { programCounter = programCounter + 1; }
+
 		}
 	}
 
