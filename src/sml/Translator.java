@@ -10,8 +10,10 @@ import java.util.Scanner;
 
 import static sml.Registers.Register;
 
+// TODO: add JavaDoc
+
 /**
- * This class ....
+ *
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
@@ -28,9 +30,7 @@ public final class Translator {
         this.fileName =  fileName;
     }
 
-    // translate the small program in the file into lab (the labels) and
-    // prog (the program)
-    // return "no errors were detected"
+    // TODO: add JavaDoc comments
 
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
@@ -77,6 +77,11 @@ public final class Translator {
                 String s = scan();
                 return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
+            case JumpIfNotZeroInstruction.OP_CODE -> {
+                String s = scan();
+                String instructionLabel = scan();
+                return new JumpIfNotZeroInstruction(label, Register.valueOf(s), instructionLabel);
+            }
             case MoveInstruction.OP_CODE -> {
                 String r = scan();
                 Integer value = Integer.parseInt(scan());
@@ -96,13 +101,6 @@ public final class Translator {
                 String s = scan();
                 return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-            case JumpIfNotZeroInstruction.OP_CODE -> {
-                String s = scan();
-                String instructionLabel = scan();
-                return new JumpIfNotZeroInstruction(label, Register.valueOf(s), instructionLabel);
-            }
-
-            // TODO: add code for all other types of instructions
 
             // TODO: Then, replace the switch by using the Reflection API
 
