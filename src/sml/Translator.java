@@ -128,11 +128,22 @@ public final class Translator {
      * Return the first word of line and remove it from line.
      * If there is no word, return "".
      */
-    private String scan() {
+    private String scan() throws RuntimeException {
         line = line.trim();
+        int whitespaceCounter = 0;
+
+        // Check if the instruction line contains more than 3 spaces, which means
+        // the formatting of the instruction is incorrect and should be revised.
+        for(int i = 0; i < line.length(); i++)
+            if(Character.isWhitespace(line.charAt(i))) {
+                whitespaceCounter ++;
+                if(whitespaceCounter > 3) {
+                    throw new RuntimeException();
+                }
+            }
 
         for(int i = 0; i < line.length(); i++)
-            if (Character.isWhitespace(line.charAt(i))) {
+            if(Character.isWhitespace(line.charAt(i))) {
                 String word = line.substring(0, i);
                 line = line.substring(i);
                 return word;
