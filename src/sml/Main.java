@@ -29,6 +29,7 @@ public class Main {
 			System.out.println(m);
 
 			System.out.println("Beginning program execution.");
+			// TODO: remove try/catch as exceptions should be caught by line 48.
 			try {
 				m.execute();
 				System.out.println("Ending program execution.");
@@ -43,6 +44,9 @@ public class Main {
 		}
 		catch(IOException e) {
 			System.out.println("Error: IO error when reading the program from " + args[0]);
+		}
+		catch(Exception e) {
+			System.out.println("Please revise your SML program before attempting to rerun.");
 		}
 	}
 }

@@ -19,7 +19,7 @@ public final class Labels {
 	 * @param label the label
 	 * @param address the address the label refers to
 	 */
-	public void addLabel(String label, int address) {
+	public void addLabel(String label, int address) throws IllegalArgumentException {
 		Objects.requireNonNull(label);
 		if(labels.containsKey(label)) {
 			System.out.println("Label \"" + label +

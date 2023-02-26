@@ -61,7 +61,7 @@ public final class Translator {
      * The input line should consist of a single SML instruction,
      * with its label already removed.
      */
-    private Instruction getInstruction(String label) {
+    private Instruction getInstruction(String label) throws RuntimeException {
         if(line.isEmpty())
             return null;
 
@@ -108,10 +108,10 @@ public final class Translator {
             //       to work with different sets of opcodes (different CPUs)
 
             default -> {
-                System.out.println("Unknown instruction: " + opcode);
+                System.out.println("Unknown instruction \"" + opcode + "\" found." );
+                throw new RuntimeException();
             }
         }
-        return null;
     }
 
 
