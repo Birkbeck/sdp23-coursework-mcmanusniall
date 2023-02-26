@@ -127,7 +127,7 @@ public final class Translator {
         if(word.endsWith(":"))
             return word.substring(0, word.length() - 1);
         // undo scanning the word
-        line = word + " " + line;
+        line = word + line;
         return null;
     }
 
