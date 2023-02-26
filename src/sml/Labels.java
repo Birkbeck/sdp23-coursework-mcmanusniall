@@ -21,9 +21,10 @@ public final class Labels {
 	 */
 	public void addLabel(String label, int address) {
 		Objects.requireNonNull(label);
-		if(labels.get(label) != null) {
-			System.out.println(label + " is already associated with another Instruction. " + "Please revise the SML program");
-			System.exit(1);
+		if(labels.containsKey(label)) {
+			System.out.println("Label \"" + label +
+								"\" is already associated with another instruction.");
+			throw new IllegalArgumentException();
 		}
 		labels.put(label, address);
 	}
