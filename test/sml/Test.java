@@ -216,13 +216,11 @@ class Test {
     }
 
     @org.junit.jupiter.api.Test
-    public void testMoveIntegerBetweenTwoRegisters() {
-
-    }
-
-    @org.junit.jupiter.api.Test
-    public void testContentsOfRegisterEqualZero() {
-
+    public void testLabelDefinitionAlreadyExists() {
+        Machine m = new Machine(new Registers());
+        m.getLabels().addLabel("test", 0);
+        assertThrows(IllegalArgumentException.class,
+                () -> m.getLabels().addLabel("test", 0));
     }
 
     @org.junit.jupiter.api.Test
@@ -235,10 +233,7 @@ class Test {
 
     }
 
-    @org.junit.jupiter.api.Test
-    public void testLabelDefinitionAlreadyStated() {
 
-    }
 
     @org.junit.jupiter.api.Test
     public void testLabelledInstructionDoesNotExist() {
