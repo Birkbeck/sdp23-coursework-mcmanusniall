@@ -11,12 +11,16 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testFileExists() {
-
+        Translator t = new Translator("program.txt");
+        Machine m = new Machine(new Registers());
+        assertDoesNotThrow(() -> t.readAndTranslate(m.getLabels(), m.getProgram()));
     }
 
     @org.junit.jupiter.api.Test
-    public void testFileDoesNotExists() {
-
+    public void testFileDoesNotExist() {
+        Translator t = new Translator("test.txt");
+        Machine m = new Machine(new Registers());
+        assertThrows(IOException.class, () -> t.readAndTranslate(m.getLabels(), m.getProgram()));
     }
 
     @org.junit.jupiter.api.Test
