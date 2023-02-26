@@ -138,6 +138,8 @@ public final class Translator {
             if(Character.isWhitespace(line.charAt(i))) {
                 whitespaceCounter ++;
                 if(whitespaceCounter > 3) {
+                    System.out.println("Error: Detected an incorrectly formatted instruction - \"" +
+                                        line + "\".");
                     throw new RuntimeException();
                 }
             }
