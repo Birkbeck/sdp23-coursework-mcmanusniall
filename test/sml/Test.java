@@ -113,33 +113,6 @@ class Test {
         assertEquals(8, registers.get(resultRegisterName));
     }
 
-    public void testJNZInstructionLabelDoesNotExist() {
-        // Create a Machine to execute the instructions.
-        Machine m = new Machine(new Registers());
-        // Get the Register object of the Machine
-        Registers registers = m.getRegisters();
-        // Populate result register with Integer.
-        Registers.Register resultRegisterName = Registers.Register.EAX;
-        // Populate source register with Integer.
-        Registers.Register sourceRegisterName = Registers.Register.ECX;
-        registers.set(sourceRegisterName, 5);
-        // Create Labelled Instruction
-        Instruction labelledInstruction = new sml.instruction.MoveInstruction(
-                "test", resultRegisterName, 8
-        );
-        // Add Labelled Instruction to the program.
-        m.getProgram().add(labelledInstruction);
-        // Add Labelled Instruction to the Labels HashMap.
-        m.getLabels().addLabel("test", 0);
-        // Create jnz Instruction
-        Instruction jnzInstruction = new sml.instruction.JumpIfNotZeroInstruction(
-                "", sourceRegisterName,"blank"
-        );
-        // Test
-        jnzInstruction.execute(m);
-        assertEquals(8, registers.get(resultRegisterName));
-    }
-
     @org.junit.jupiter.api.Test
     public void testJNZInstructionWhenRegisterContainsZero() {
         // Create a Machine to execute the instructions.
@@ -166,6 +139,13 @@ class Test {
         jnzInstruction.execute(m);
         // Test
         assertEquals(0, registers.get(resultRegisterName));
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testJNZInstructionLabelDoesNotExist() {
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        assertThrows(NullPointerException.class, () -> m.getLabels().getAddress("test"));
     }
 
     @org.junit.jupiter.api.Test
