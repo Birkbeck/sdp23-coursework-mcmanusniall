@@ -61,56 +61,63 @@ public final class Translator {
      * The input line should consist of a single SML instruction,
      * with its label already removed.
      */
-    private Instruction getInstruction(String label) throws RuntimeException {
+    private Instruction getInstruction(String label) throws IllegalArgumentException {
+
         if(line.isEmpty())
             return null;
 
+        String instruction = line;
         String opcode = scan();
-        switch(opcode) {
-            case AddInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case DivideInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case JumpIfNotZeroInstruction.OP_CODE -> {
-                String s = scan();
-                String instructionLabel = scan();
-                return new JumpIfNotZeroInstruction(label, Register.valueOf(s), instructionLabel);
-            }
-            case MoveInstruction.OP_CODE -> {
-                String r = scan();
-                Integer value = Integer.parseInt(scan());
-                return new MoveInstruction(label, Register.valueOf(r), value);
-            }
-            case MultiplyInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case PrintInstruction.OP_CODE -> {
-                String s = scan();
-                return new PrintInstruction(label, Register.valueOf(s));
-            }
-            case SubtractInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
 
-            // TODO: Then, replace the switch by using the Reflection API
+        try {
+            switch(opcode) {
+                case AddInstruction.OP_CODE -> {
+                    String r = scan();
+                    String s = scan();
+                    return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                }
+                case DivideInstruction.OP_CODE -> {
+                    String r = scan();
+                    String s = scan();
+                    return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                }
+                case JumpIfNotZeroInstruction.OP_CODE -> {
+                    String s = scan();
+                    String instructionLabel = scan();
+                    return new JumpIfNotZeroInstruction(label, Register.valueOf(s), instructionLabel);
+                }
+                case MoveInstruction.OP_CODE -> {
+                    String r = scan();
+                    Integer value = Integer.parseInt(scan());
+                    return new MoveInstruction(label, Register.valueOf(r), value);
+                }
+                case MultiplyInstruction.OP_CODE -> {
+                    String r = scan();
+                    String s = scan();
+                    return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                }
+                case PrintInstruction.OP_CODE -> {
+                    String s = scan();
+                    return new PrintInstruction(label, Register.valueOf(s));
+                }
+                case SubtractInstruction.OP_CODE -> {
+                    String r = scan();
+                    String s = scan();
+                    return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                }
+                // TODO: Then, replace the switch by using the Reflection API
 
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
+                // TODO: Next, use dependency injection to allow this machine class
+                //       to work with different sets of opcodes (different CPUs)
 
-            default -> {
-                System.out.println("Unknown instruction \"" + opcode + "\" found." );
-                throw new RuntimeException();
+                default -> {
+                    System.out.println("Error: Unknown operation \"" + opcode + "\" found.");
+                    throw new IllegalArgumentException();
+                }
             }
+        } catch(IllegalArgumentException e) {
+            System.out.println("Error: \"" + instruction + "\" contains an illegal argument.");
+            throw e;
         }
     }
 
