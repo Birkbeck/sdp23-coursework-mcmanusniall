@@ -66,7 +66,18 @@ public final class Labels {
 		return "";
 	}
 
-	// TODO: Implement equals and hashCode (needed in class Machine).
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Labels labels1 = (Labels) o;
+		return labels.equals(labels1.labels);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(labels);
+	}
 
 	/**
 	 * Removes the labels
