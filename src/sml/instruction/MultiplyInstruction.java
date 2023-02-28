@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 public class MultiplyInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
@@ -30,12 +32,15 @@ public class MultiplyInstruction extends Instruction {
     }
 
     @Override
-    public int hashCode() {
-        return 0;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MultiplyInstruction that = (MultiplyInstruction) o;
+        return result.equals(that.result) && source.equals(that.source);
     }
 
     @Override
-    public boolean equals() {
-        return false;
+    public int hashCode() {
+        return Objects.hash(result, source);
     }
 }

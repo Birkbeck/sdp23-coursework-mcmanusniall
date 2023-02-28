@@ -234,6 +234,10 @@ class Test {
     // TODO: test unknown instruction throws exception
     }
 
+    @org.junit.jupiter.api.Test
+    public void testLabelHasWhitespaceCharacters() {
+        // TODO: test unknown instruction throws exception
+    }
 
     @org.junit.jupiter.api.Test
     public void testLegalProgram() {
