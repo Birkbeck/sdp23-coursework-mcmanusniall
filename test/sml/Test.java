@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import sml.instruction.PrintInstruction;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -83,6 +84,11 @@ class Test {
         );
         // Test
         assertThrows(ArithmeticException.class, () -> divideInstruction.execute(m));
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testRegisterDoesNotExist() {
+        // TODO:
     }
 
     @org.junit.jupiter.api.Test
@@ -225,8 +231,27 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testInstructionStructureIsCorrect() {
-
+    // TODO: test unknown instruction throws exception
     }
 
-    // TODO: test unknown instruction throws exception
+
+    @org.junit.jupiter.api.Test
+    public void testLegalProgram() {
+        Translator t = new Translator("./test/resources/programWithLegalInstructions.txt");
+        Machine m = new Machine(new Registers());
+        try {
+            t.readAndTranslate(m.getLabels(), m.getProgram());
+            m.execute();
+        } catch (Exception e) {}
+        Registers registers = m.getRegisters();
+
+        assertEquals(7, registers.get(Registers.Register.EAX));
+        assertEquals(2, registers.get(Registers.Register.EBX));
+        assertEquals(60, registers.get(Registers.Register.ECX));
+        assertEquals(10, registers.get(Registers.Register.EDX));
+        assertEquals(10, registers.get(Registers.Register.ESP));
+        assertEquals(2, registers.get(Registers.Register.EBP));
+        assertEquals(98, registers.get(Registers.Register.ESI));
+        assertEquals(5, registers.get(Registers.Register.EDI));
+    }
 }

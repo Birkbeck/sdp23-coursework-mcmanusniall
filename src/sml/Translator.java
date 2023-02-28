@@ -131,10 +131,10 @@ public final class Translator {
         return null;
     }
 
-    /*
+    /**
      * Return the first word of line and remove it from line.
      * If there is no word, return "".
-     */
+     **/
     private String scan() throws RuntimeException {
         line = line.trim();
         int whitespaceCounter = 0;

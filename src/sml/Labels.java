@@ -22,7 +22,7 @@ public final class Labels {
 	public void addLabel(String label, int address) throws IllegalArgumentException {
 		Objects.requireNonNull(label);
 		if(labels.containsKey(label)) {
-			System.out.println("Label \"" + label +
+			System.out.println("Error: Label \"" + label +
 								"\" is already associated with another instruction.");
 			throw new IllegalArgumentException();
 		}
