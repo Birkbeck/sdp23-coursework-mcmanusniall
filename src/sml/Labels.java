@@ -63,8 +63,7 @@ public final class Labels {
 	 */
 	@Override
 	public String toString() {
-		String labelsString = labels.entrySet()
-									.stream()
+		String labelsString = labels.entrySet().stream()
 									.map(e -> e.getKey() + " -> " + e.getValue())
 									.collect(Collectors.joining(", ", "[", "]"));
 		return labelsString;
