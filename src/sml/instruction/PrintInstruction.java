@@ -15,7 +15,6 @@ import java.util.Objects;
  */
 public class PrintInstruction extends Instruction {
     private final RegisterName source;
-
     public static final String OP_CODE = "out";
 
     /**
@@ -29,6 +28,12 @@ public class PrintInstruction extends Instruction {
         this.source = source;
     }
 
+    /**
+     * Executes the instruction, printing the integer stored in the referenced register.
+     *
+     * @param m the machine the instruction runs on.
+     * @return NORMAL_PROGRAM_COUNTER_UPDATE - assures the program counter is increased by 1 if successful.
+     */
     @Override
     public int execute(Machine m) {
         String message = source.name() + " - " + m.getRegisters().get(source);
@@ -36,6 +41,11 @@ public class PrintInstruction extends Instruction {
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
+    /**
+     * Returns a String representation of the instruction.
+     *
+     * @return a String representation of the instruction.
+     */
     @Override
     public String toString() {
         return getLabelString() + getOpcode() + " " + source;

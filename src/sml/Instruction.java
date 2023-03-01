@@ -1,11 +1,10 @@
 package sml;
 
-// TODO: write a JavaDoc for the class
-
 import java.util.Objects;
 
 /**
- * This class is an <code>abstract</code> class that models a Small Machine Language (SML) instruction, comprised of fields:
+ * This class is an <code>abstract</code> class that models a Small Machine Language (SML) instruction.
+ * Each <code>Instruction</code> is comprised of the fields:
  * <code>label</code> (of type <code>String</code>), representing an optionally passed label, <code>opcode</code> (of
  * type <code>String</code>), representing the SML operation to be undertaken, and
  * <code>NORMAL_PROGRAM_COUNTER_UPDATE</code> (of type <code>int</code>), representing the update to the program
@@ -31,10 +30,18 @@ public abstract class Instruction {
 		this.opcode = opcode;
 	}
 
+	/**
+	 * Returns a <code>String</code> object of the label of an Instruction.
+	 * @return the <code>label String</code> of an <code>sml.Instruction</code> object.
+	 */
 	public String getLabel() {
 		return label;
 	}
 
+	/**
+	 * Returns a <code>String</code> object of the operator of an Instruction.
+	 * @return the <code>opcode String</code> of an <code>sml.Instruction</code> object.
+	 */
 	public String getOpcode() {
 		return opcode;
 	}
@@ -42,13 +49,17 @@ public abstract class Instruction {
 	/**
 	 * Executes the instruction in the given machine.
 	 *
-	 * @param machine the machine the instruction runs on
+	 * @param machine the machine the instruction runs on.
 	 * @return the new program counter (for jump instructions)
 	 *          or NORMAL_PROGRAM_COUNTER_UPDATE to indicate that
-	 *          the instruction with the next address is to be executed
+	 *          the instruction with the next address is to be executed.
 	 */
 	public abstract int execute(Machine machine);
 
+	/**
+	 * Returns a <code>String</code> object of the label of an Instruction as written in an SML program.
+	 * @return the <code>label String</code> of a raw SML instruction (i.e. including the ':').
+	 */
 	protected String getLabelString() {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
 	}
@@ -56,6 +67,12 @@ public abstract class Instruction {
 	// What does abstract in the declaration below mean?
 	// The responsibility of the implementation of the method is placed on the subclass.
 	// The subclass can implement the method using the @Override tag.
+
+	/**
+	 * Returns a String representation of the instruction.
+	 *
+	 * @return a String representation of the instruction.
+	 */
 	@Override
 	public abstract String toString();
 

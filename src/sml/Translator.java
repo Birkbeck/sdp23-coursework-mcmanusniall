@@ -19,17 +19,21 @@ import static sml.Registers.Register;
  */
 public final class Translator {
 
-    private final String fileName; // source file of SML code
-
-    // line contains the characters in the current line that's not been processed yet
+    private final String fileName;
     private String line = "";
-
     public Translator(String fileName) {
         this.fileName =  fileName;
     }
 
-    // TODO: add JavaDoc comments
 
+    /**
+     * Reads in the SML program file line by line and translates it into the internal format. Labels that are stated
+     * are stored in the <code>labels</code> HashMap and instructions are stored in the <code>program</code> List.
+     *
+     * @param labels - empty HashMap object to store labels.
+     * @param program - empty List to store <code>sml.Instruction</code> objects.
+     * @throws IOException
+     */
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
         try(var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
@@ -119,7 +123,12 @@ public final class Translator {
         }
     }
 
-
+    /**
+     * Scans through each word in a given line in an SML program and returns a label for each line.
+     * If no label exists <code>null</code> is returned.
+     * If a label exists, the <code>String</code> object of the label is returned.
+     * @return the optional label of each line.
+     */
     private String getLabel() {
         String word = scan();
         if(word.endsWith(":"))
@@ -130,8 +139,10 @@ public final class Translator {
     }
 
     /**
-     * Return the first word of line and remove it from line.
-     * If there is no word, return "".
+     * Return the first word of each line and remove it from line.
+     * A check is made to identify if there are more than 4 spaces in an SML instruction, thereby making it
+     * illegally formatted. If this is the case, a <code>RuntimeException()</code> is thrown.
+     * @return the first word of a given line. If there is no word, return "".
      **/
     private String scan() throws RuntimeException {
         line = line.trim();

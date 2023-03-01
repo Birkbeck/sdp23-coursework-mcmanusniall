@@ -7,7 +7,7 @@ import java.util.stream.*;
 
 /**
  * This class is a <code>final</code> class that stores the given <code>labels</code> provided in a Small Machine
- * Language (SML) program in a <code>HashMap<String, Integer></code>. The <code>String</code> key stores the
+ * Language (SML) program in a <code>HashMap(String, Integer)</code>. The <code>String</code> key stores the
  * <code>label</code> (of type <code>String</code>) and the <code>Integer</code> value stores the index to the
  * instruction i.e. the line of the relative instruction in the SML program.
  *
@@ -15,6 +15,12 @@ import java.util.stream.*;
  * @version 1.0
  */
 public final class Labels {
+
+	/**
+	 * Creates a <code>HashMap(String, Integer)</code>. The <code>String</code> key stores the
+	 * <code>label</code> (of type <code>String</code>) and the <code>Integer</code> value stores the index to the
+	 * instruction i.e. the line of the relative instruction in the SML program.
+	 */
 	private final Map<String, Integer> labels = new HashMap<>();
 
 	/**
@@ -22,6 +28,7 @@ public final class Labels {
 	 *
 	 * @param label the label
 	 * @param address the address the label refers to
+	 * @throws IllegalArgumentException
 	 */
 	public void addLabel(String label, int address) throws IllegalArgumentException {
 		Objects.requireNonNull(label);
@@ -38,6 +45,8 @@ public final class Labels {
 	 *
 	 * @param label the label
 	 * @return the address the label refers to
+	 * @throws NullPointerException
+	 * @throws RuntimeException
 	 */
 	public int getAddress(String label) {
 		// Where can NullPointerException be thrown here?
@@ -59,10 +68,17 @@ public final class Labels {
 	}
 
 	/**
-	 * representation of this instance,
-	 * in the form "[label -> address, label -> address, ..., label -> address]"
+	 * Removes the labels
+	 */
+	public void reset() {
+		labels.clear();
+	}
+
+	/**
+	 * Returns a <code>String</code> representation of this instance in the form
+	 * "[label -> address, label -> address, ..., label -> address]"
 	 *
-	 * @return the string representation of the labels map
+	 * @return the string representation of the <code>Labels</code> HashMap.
 	 */
 	@Override
 	public String toString() {
@@ -82,12 +98,5 @@ public final class Labels {
 	@Override
 	public int hashCode() {
 		return Objects.hash(labels);
-	}
-
-	/**
-	 * Removes the labels
-	 */
-	public void reset() {
-		labels.clear();
 	}
 }

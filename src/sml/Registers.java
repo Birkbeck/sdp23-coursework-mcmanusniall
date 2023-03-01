@@ -10,20 +10,26 @@ import java.util.stream.Collectors;
  * value stored within it (default = 0).
  *
  * The <code>sml.Registers</code> are defined by a <code>sml.RegisterName</code>. The <code>sml.RegisterName</code> is
- * limited to EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI.
+ * limited to <code>EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI</code>.
  *
  * @author mcmanusniall
  * @version 1.0
  */
 
 public final class Registers {
+
+    /**
+     * Creates a <code>HashMap(String, Integer)</code>. The <code>Register</code> key stores the
+     * <code>register</code> and the <code>Integer</code> value stores the integer stored in the index (default = 0).
+     */
     private final Map<Register, Integer> registers = new HashMap<>();
 
     public enum Register implements RegisterName {
         EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI;
     }
-
-
+    /**
+     * Clears the registers, setting their value to 0.
+     */
     public Registers() {
         clear(); // the class is final
     }
@@ -57,6 +63,19 @@ public final class Registers {
         return registers.get((Register)register);
     }
 
+    /**
+     * String representation of the registers.
+     *
+     * @return pretty formatted version of the code.
+     */
+    @Override
+    public String toString() {
+        return registers.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(e -> e.getKey() + " = " + e.getValue())
+                .collect(Collectors.joining(", ", "[", "]")) ;
+    }
+
     @Override
     public boolean equals(Object o) {
         if(o instanceof Registers other) {
@@ -68,13 +87,5 @@ public final class Registers {
     @Override
     public int hashCode() {
         return registers.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return registers.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .map(e -> e.getKey() + " = " + e.getValue())
-                .collect(Collectors.joining(", ", "[", "]")) ;
     }
 }

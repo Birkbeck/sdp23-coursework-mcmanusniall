@@ -16,16 +16,16 @@ import java.util.Objects;
 public class MultiplyInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
-
     public static final String OP_CODE = "mul";
 
     /**
      * Constructor: an instruction with a label, a 'mul' opcode and two registers.
      *
      * @param label optional label (can be null).
-     * @param result the first sml.Register to be referenced (the result of executing the instruction is stored in this
-     *               register).
-     * @param source the second sml.Register to be referenced and multiplied by the first.
+     * @param result the first <code>sml.Register</code> (referenced by <code>Register.RegisterName</code>).
+     *               The result of executing the instruction is stored in this register.
+     * @param source the second <code>sml.Register</code> (referenced (by <code>Register.RegisterName</code>) to be
+     *               multiplied by the first.
      */
     public MultiplyInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
@@ -33,6 +33,13 @@ public class MultiplyInstruction extends Instruction {
         this.source = source;
     }
 
+    /**
+     * Executes the instruction, multiplying the contents of the two referenced registers and storing the result in the
+     * first.
+     *
+     * @param m the machine the instruction runs on.
+     * @return NORMAL_PROGRAM_COUNTER_UPDATE - assures the program counter is increased by 1 if successful.
+     */
     @Override
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);
@@ -41,6 +48,11 @@ public class MultiplyInstruction extends Instruction {
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
+    /**
+     * Returns a String representation of the instruction.
+     *
+     * @return a String representation of the instruction.
+     */
     @Override
     public String toString() {
         return getLabelString() + getOpcode() + " " + result + " " + source;

@@ -19,9 +19,7 @@ import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
 public final class Machine {
 
 	private final Labels labels = new Labels();
-
 	private final List<Instruction> program = new ArrayList<>();
-
 	private final Registers registers;
 
 	// The program counter; it contains the index (in program)
@@ -50,13 +48,12 @@ public final class Machine {
 						: programCounterUpdate; // else program counter equals the value of programCounterUpdate.
 			}
 			else { programCounter = programCounter + 1; }
-			// TODO: check code formatting
 		}
 	}
 
 	/**
 	 * Returns Labels object with field labels - a HashMap<String, Integer>
-	 * object where the String object refers to the label e.g. ":f3" and
+	 * object where the String object refers to the label e.g. "f3:" and
 	 * the Integer object refers to the position of the instruction e.g. [0] is the first label.
 	 * @return Labels object containing all the labels.
 	 */

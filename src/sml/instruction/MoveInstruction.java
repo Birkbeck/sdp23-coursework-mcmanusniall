@@ -17,14 +17,14 @@ import java.util.Objects;
 public class MoveInstruction extends Instruction {
     private final RegisterName result;
     private final Integer value;
-
     public static final String OP_CODE = "mov";
 
     /**
      * Constructor: an instruction with a label, a 'mov' opcode, a register, and an integer.
      *
      * @param label optional label (can be null).
-     * @param result the sml.Register where the value is to be stored.
+     * @param result the <code>sml.Register</code> (referenced by <code>Register.RegisterName</code>) where the value
+     *               is to be stored.
      * @param value the integer to store in the register.
      */
     public MoveInstruction(String label, RegisterName result, Integer value) {
@@ -33,6 +33,12 @@ public class MoveInstruction extends Instruction {
         this.value = value;
     }
 
+    /**
+     * Executes the instruction, storing the value passed in the referenced register.
+     *
+     * @param m the machine the instruction runs on.
+     * @return NORMAL_PROGRAM_COUNTER_UPDATE - assures the program counter is increased by 1 if successful.
+     */
     @Override
     public int execute(Machine m) {
         try {
@@ -44,6 +50,11 @@ public class MoveInstruction extends Instruction {
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
+    /**
+     * Returns a String representation of the instruction.
+     *
+     * @return a String representation of the instruction.
+     */
     @Override
     public String toString() {
         return getLabelString() + getOpcode() + " " + result + " " + value;

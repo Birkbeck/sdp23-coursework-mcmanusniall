@@ -17,16 +17,16 @@ import java.util.Objects;
 public class DivideInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
-
     public static final String OP_CODE = "div";
 
     /**
      * Constructor: an instruction with a label, a 'div' opcode and two registers.
      *
      * @param label optional label (can be null).
-     * @param result the first sml.Register to be referenced (the result of executing the instruction is stored in this
-     *               register) - the dividend.
-     * @param source the second sml.Register to be referenced - the divider.
+     * @param result the first <code>sml.Register</code> (referenced by <code>Register.RegisterName</code>).
+     * 	 *               The result of executing the instruction is stored in this register.
+     * @param source the second <code>sml.Register</code> (referenced by <code>Register.RegisterName</code>)
+     *              - the divider.
      */
     public DivideInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
@@ -34,6 +34,16 @@ public class DivideInstruction extends Instruction {
         this.source = source;
     }
 
+    /**
+     * Executes the instruction, dividing the contents of the first referenced register by the second and storing the
+     * result in the first.
+     *
+     * If the divider contains the value of 0, an <code>ArithmeticException</code> is thrown and the program exited.
+     *
+     * @param m the machine the instruction runs on.
+     * @return NORMAL_PROGRAM_COUNTER_UPDATE - assures the program counter is increased by 1 if successful.
+     * @throws ArithmeticException
+     */
     @Override
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);
@@ -47,6 +57,11 @@ public class DivideInstruction extends Instruction {
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
+    /**
+     * Returns a String representation of the instruction.
+     *
+     * @return a String representation of the instruction.
+     */
     @Override
     public String toString() {
         return getLabelString() + getOpcode() + " " + result + " " + source;
