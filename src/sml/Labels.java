@@ -66,7 +66,7 @@ public final class Labels {
 		String labelsString = labels.entrySet()
 									.stream()
 									.map(e -> e.getKey() + " -> " + e.getValue())
-									.collect(Collectors.joining(",", "[", "]"));
+									.collect(Collectors.joining(", ", "[", "]"));
 		return labelsString;
 	}
 
