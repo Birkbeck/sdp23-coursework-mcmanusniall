@@ -3,12 +3,19 @@ package sml;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * This class is a <code>final</code> class that stores the 8 <code>sml.Registers</code> (of type
+ * <code>HashMap<sml.Register, Integer></code>) that are accessed and referenced in a Small Machine Language (SML)
+ * program. The key stores each unique <code>sml.Register</code> and the <code>Integer</code>
+ * value stored within it (default = 0).
  *
- * @author ...
+ * The <code>sml.Registers</code> are defined by a <code>sml.RegisterName</code>. The <code>sml.RegisterName</code> is
+ * limited to EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI.
+ *
+ * @author mcmanusniall
+ * @version 1.0
  */
+
 public final class Registers {
     private final Map<Register, Integer> registers = new HashMap<>();
 

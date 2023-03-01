@@ -5,17 +5,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.*;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * This class is a <code>final</code> class that stores the given <code>labels</code> provided in a Small Machine
+ * Language (SML) program in a <code>HashMap<String, Integer></code>. The <code>String</code> key stores the
+ * <code>label</code> (of type <code>String</code>) and the <code>Integer</code> value stores the index to the
+ * instruction i.e. the line of the relative instruction in the SML program.
  *
- * @author ...
+ * @author mcmanusniall
+ * @version 1.0
  */
 public final class Labels {
 	private final Map<String, Integer> labels = new HashMap<>();
 
 	/**
-	 * Adds a label with the associated address to the map.
+	 * Adds a label with the associated address to the <code>Labels</code> HashMap.
 	 *
 	 * @param label the label
 	 * @param address the address the label refers to
@@ -63,10 +66,9 @@ public final class Labels {
 	 */
 	@Override
 	public String toString() {
-		String labelsString = labels.entrySet().stream()
+		return labels.entrySet().stream()
 									.map(e -> e.getKey() + " -> " + e.getValue())
 									.collect(Collectors.joining(", ", "[", "]"));
-		return labelsString;
 	}
 
 	@Override

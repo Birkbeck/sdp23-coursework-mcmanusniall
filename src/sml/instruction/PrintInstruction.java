@@ -3,20 +3,27 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * @author
+ * This class is a subclass of the <code>abstract</code> class <code>sml.Instruction</code> and models the Small Machine
+ * Language (SML) instruction that <i>prints</i> the <code>value</code>, of type <code>Integer</code>, stored in a
+ * <code>sml.Register</code> - <code>source</code>, and accessed by the <code>sml.RegisterName</code>, to the console.
+ *
+ * @author mcmanusniall
+ * @version 1.0
  */
-
 public class PrintInstruction extends Instruction {
     private final RegisterName source;
 
     public static final String OP_CODE = "out";
 
+    /**
+     * Constructor: an instruction with a label, an 'out' opcode, and a register.
+     *
+     * @param label optional label (can be null).
+     * @param source the sml.Register that is to be printed to the console alongside it's content.
+     */
     public PrintInstruction(String label, RegisterName source) {
         super(label, OP_CODE);
         this.source = source;

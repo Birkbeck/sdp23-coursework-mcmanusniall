@@ -10,14 +10,12 @@ import java.util.Scanner;
 
 import static sml.Registers.Register;
 
-// TODO: add JavaDoc
-
 /**
+ * This class is a <code>final</code> class that represents the translator that processes a Small Machine Language (SML)
+ * program into internal form.
  *
- * <p>
- * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
- *
- * @author ...
+ * @author mcmanusniall
+ * @version 1.0
  */
 public final class Translator {
 

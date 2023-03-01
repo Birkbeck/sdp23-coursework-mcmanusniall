@@ -3,15 +3,30 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
 
+/**
+ * This class is a subclass of the <code>abstract</code> class <code>sml.Instruction</code> and models the Small Machine
+ * Language (SML) instruction that performs a <i>multiplication</i> of two registers - <code>result</code> (of type
+ * <code>sml.RegisterName</code>) and <code>source</code> (of type <code>sml.RegisterName</code>).
+ *
+ * @author mcmanusniall
+ * @version 1.0
+ */
 public class MultiplyInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
     public static final String OP_CODE = "mul";
 
+    /**
+     * Constructor: an instruction with a label, a 'mul' opcode and two registers.
+     *
+     * @param label optional label (can be null).
+     * @param result the first sml.Register to be referenced (the result of executing the instruction is stored in this
+     *               register).
+     * @param source the second sml.Register to be referenced and multiplied by the first.
+     */
     public MultiplyInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
         this.result = result;

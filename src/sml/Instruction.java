@@ -5,9 +5,14 @@ package sml;
 import java.util.Objects;
 
 /**
- * Represents an abstract instruction.
+ * This class is an <code>abstract</code> class that models a Small Machine Language (SML) instruction, comprised of fields:
+ * <code>label</code> (of type <code>String</code>), representing an optionally passed label, <code>opcode</code> (of
+ * type <code>String</code>), representing the SML operation to be undertaken, and
+ * <code>NORMAL_PROGRAM_COUNTER_UPDATE</code> (of type <code>int</code>), representing the update to the program
+ * counter.
  *
- * @author Niall McManus
+ * @author mcmanusniall
+ * @version 1.0
  */
 public abstract class Instruction {
 	protected final String label;

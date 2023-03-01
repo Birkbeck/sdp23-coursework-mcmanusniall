@@ -6,14 +6,27 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
+/**
+ * This class is a subclass of the <code>abstract</code> class <code>sml.Instruction</code> and models the Small Machine
+ * Language (SML) instruction that stores the <code>value</code>, of type <code>Integer</code>, in a given
+ * <code>sml.Register</code>.
+ *
+ * @author mcmanusniall
+ * @version 1.0
+ */
 public class MoveInstruction extends Instruction {
     private final RegisterName result;
     private final Integer value;
 
     public static final String OP_CODE = "mov";
 
+    /**
+     * Constructor: an instruction with a label, a 'mov' opcode, a register, and an integer.
+     *
+     * @param label optional label (can be null).
+     * @param result the sml.Register where the value is to be stored.
+     * @param value the integer to store in the register.
+     */
     public MoveInstruction(String label, RegisterName result, Integer value) {
         super(label, OP_CODE);
         this.result = result;

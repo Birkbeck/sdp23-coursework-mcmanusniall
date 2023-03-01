@@ -1,6 +1,7 @@
 package sml;
 
 import org.junit.jupiter.api.BeforeEach;
+import sml.instruction.AddInstruction;
 import sml.instruction.PrintInstruction;
 
 import java.io.IOException;
@@ -258,4 +259,51 @@ class Test {
         assertEquals(98, registers.get(Registers.Register.ESI));
         assertEquals(5, registers.get(Registers.Register.EDI));
     }
+
+    @org.junit.jupiter.api.Test
+    public void testInstructionIsEqual() {
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        registers.set(resultRegisterName, 2);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        registers.set(sourceRegisterName, 5);
+        // Create Subtract Instruction
+        Instruction subtractInstruction = new sml.instruction.SubtractInstruction(
+                "", resultRegisterName, sourceRegisterName
+        );
+        Instruction subtractInstruction2 = new sml.instruction.SubtractInstruction(
+                "", resultRegisterName, sourceRegisterName
+        );
+        // Test
+        assertEquals(subtractInstruction, subtractInstruction2);
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testInstructionIsNotEqual() {
+        // Create a Machine to execute the instructions.
+        Machine m = new Machine(new Registers());
+        // Get the Register object of the Machine
+        Registers registers = m.getRegisters();
+        // Populate result register with Integer.
+        Registers.Register resultRegisterName = Registers.Register.EAX;
+        registers.set(resultRegisterName, 2);
+        // Populate source register with Integer.
+        Registers.Register sourceRegisterName = Registers.Register.ECX;
+        registers.set(sourceRegisterName, 5);
+        // Create Subtract Instruction
+        Instruction subtractInstruction = new sml.instruction.SubtractInstruction(
+                "", resultRegisterName, sourceRegisterName
+        );
+        Instruction addInstruction = new sml.instruction.AddInstruction(
+                "", resultRegisterName, sourceRegisterName
+        );
+        // Test
+        assertNotEquals(addInstruction, subtractInstruction);
+    }
+
 }

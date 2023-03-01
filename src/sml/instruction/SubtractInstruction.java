@@ -3,21 +3,30 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * @author
+ * This class is a subclass of the <code>abstract</code> class <code>sml.Instruction</code> and models the Small Machine
+ * Language (SML) instruction that performs a <i>subtraction</i> of one register - <code>source</code> (of type
+ * <code>sml.RegisterName</code>) - from a second register - <code>result</code> (of type <code>sml.RegisterName</code>).
+ *
+ * @author mcmanusniall
+ * @version 1.0
  */
-
 public class SubtractInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
     public static final String OP_CODE = "sub";
 
+    /**
+     * Constructor: an instruction with a label, a 'sub' opcode and two registers.
+     *
+     * @param label optional label (can be null).
+     * @param result the first sml.Register to be referenced (the result of executing the instruction is stored in this
+     *               register).
+     * @param source the second sml.Register to be subtracted from the first.
+     */
     public SubtractInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
         this.result = result;

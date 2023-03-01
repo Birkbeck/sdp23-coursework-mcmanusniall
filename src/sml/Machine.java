@@ -8,10 +8,13 @@ import java.util.stream.Collectors;
 import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
 
 /**
- * Represents the machine, the context in which programs run.
- * <p>
- * An instance contains 32 registers and methods to access and change them.
+ * This class is a <code>final</code> class that represents the machine in which a Small Machine Language (SML)
+ * program runs. An instance contains the <code>labels</code> (of type <code>sml.Labels</code>), the
+ * <code>program</code> (of type <code>List<sml.Instruction></code>), and the 8 <code>registers</code>
+ * (of type sml.Registers).
  *
+ * @author mcmanusniall
+ * @version 1.0
  */
 public final class Machine {
 

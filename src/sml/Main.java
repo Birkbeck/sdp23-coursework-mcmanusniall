@@ -3,6 +3,12 @@ package sml;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * This is the <code>Main</code> class for executing a Small Machine Language (SML) program.
+ *
+ * @author mcmanusniall
+ * @version 1.0
+ */
 public class Main {
 	/**
 	 * Initialises the system and executes the program.

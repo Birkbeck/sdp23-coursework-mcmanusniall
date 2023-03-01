@@ -6,18 +6,29 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
 
 /**
- * @author
+ * This class is a subclass of the <code>abstract</code> class <code>sml.Instruction</code> and models the Small Machine
+ * Language (SML) instruction that performs an <i>addition</i> of two registers - <code>result</code> (of type
+ * <code>sml.RegisterName</code>) and <code>source</code> (of type <code>sml.RegisterName</code>).
+ *
+ * @author mcmanusniall
+ * @version 1.0
  */
-
 public class AddInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
 
 	public static final String OP_CODE = "add";
 
+	/**
+	 * Constructor: an instruction with a label, an 'add' opcode and two registers.
+	 *
+	 * @param label optional label (can be null).
+	 * @param result the first sml.Register to be referenced (the result of executing the instruction is stored in this
+	 *               register).
+	 * @param source the second sml.Register to be added to the first.
+	 */
 	public AddInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, OP_CODE);
 		this.result = result;

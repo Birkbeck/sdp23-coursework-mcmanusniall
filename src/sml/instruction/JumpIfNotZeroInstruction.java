@@ -3,17 +3,32 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
 
-// TODO: write a JavaDoc for the class
-
+/**
+ * This class is a subclass of the <code>abstract</code> class <code>sml.Instruction</code> and models the Small Machine
+ * Language (SML) instruction that performs the conditional execution of a labelled instruction -
+ * <code>instructionLabel</code> (of type <code>String</code>).
+ * The condition is that the contents of the register - <code>source</code> (of type <code>sml.RegisterName</code>) -
+ * are not equal to 0. This is often referred to as a <i>jump-if-not-zero</i> command.
+ *
+ * @author mcmanusniall
+ * @version 1.0
+ */
 public class JumpIfNotZeroInstruction extends Instruction {
     private final RegisterName source;
     private final String instructionLabel;
 
     public static final String OP_CODE = "jnz";
 
+    /**
+     * Constructor: an instruction with a label, a 'jnz' opcode, a register, and a label.
+     *
+     * @param label optional label (can be null).
+     * @param source the sml.Register to be referenced in the condition. The labelled instruction will not execute if
+     *               the value stored in this register is 0.
+     * @param instructionLabel the label of a labelled instruction in the SML program.
+     */
     public JumpIfNotZeroInstruction(String label, RegisterName source, String instructionLabel) {
         super(label, OP_CODE);
         this.source = source;
