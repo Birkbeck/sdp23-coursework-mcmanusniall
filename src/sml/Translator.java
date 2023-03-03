@@ -107,30 +107,36 @@ public final class Translator {
      * @param label the instruction label.
      * @param constructor the constructor method for an SML instruction (subclass).
      * @return An array of Objects (Object[]) containing the parameters for the related instruction.
+     * @throws RuntimeException - when arguments are unable to be gathered. Usually due to an illegally formatted command.
      */
-    private Object[] getArguments(String label, Constructor<?> constructor) throws RuntimeException {
+    private Object[] getArguments(String label, Constructor<?> constructor) {
 
-            ArrayList<Object> args = new ArrayList<>();
-            args.add(label);
+        ArrayList<Object> args = new ArrayList<>();
+        args.add(label);
 
-        // Loop through the parameters, starting at the second to discard the label.
-        for (int i = 1; i < constructor.getParameterCount(); i++) {
-            // Get the first argument.
-            String arg = scan();
-            // Get the first parameter (that is not the label).
-            Class<?> parameterType = constructor.getParameterTypes()[i];
-            if (parameterType == RegisterName.class) {
-                Register register = Register.valueOf(arg);
-                args.add(register);
-            } else if (parameterType == Integer.class) {
-                Integer integer = Integer.valueOf(arg);
-                args.add(integer);
-            } else if (parameterType == String.class) {
-                String string = String.valueOf(arg);
-                args.add(string);
-            }
-        }
-        return args.toArray();
+       try{
+           // Loop through the parameters, starting at the second to discard the label.
+           for (int i = 1; i < constructor.getParameterCount(); i++) {
+               // Get the first argument.
+               String arg = scan();
+               // Get the first parameter (that is not the label).
+               Class<?> parameterType = constructor.getParameterTypes()[i];
+               if (parameterType == RegisterName.class) {
+                   Register register = Register.valueOf(arg);
+                   args.add(register);
+               } else if (parameterType == Integer.class) {
+                   Integer integer = Integer.valueOf(arg);
+                   args.add(integer);
+               } else if (parameterType == String.class) {
+                   String string = String.valueOf(arg);
+                   args.add(string);
+               }
+           }
+           return args.toArray();
+       } catch (NumberFormatException e){
+           System.out.println("Error: Unable to gather arguments for command \"" + line + "\".");
+           throw e;
+       }
     }
 
     /**
@@ -156,20 +162,7 @@ public final class Translator {
      **/
     private String scan() throws RuntimeException {
         line = line.trim();
-        int whitespaceCounter = 0;
-
-        // Check if the instruction line contains more than 3 spaces, which means
-        // the formatting of the instruction is incorrect and should be revised.
-        for(int i = 0; i < line.length(); i++)
-            if(Character.isWhitespace(line.charAt(i))) {
-                whitespaceCounter ++;
-                if(whitespaceCounter > 3) {
-                    System.out.println("Error: Detected an incorrectly formatted instruction - \"" +
-                                        line + "\".");
-                    throw new RuntimeException();
-                }
-            }
-
+        checkWhitespace();
         for(int i = 0; i < line.length(); i++)
             if(Character.isWhitespace(line.charAt(i))) {
                 String word = line.substring(0, i);
@@ -177,5 +170,22 @@ public final class Translator {
                 return word;
             }
         return line;
+    }
+
+    /**
+     * Check if the instruction line contains more than 3 spaces, which means
+     * the formatting of the instruction is incorrect and should be revised.
+     */
+    private void checkWhitespace() {
+        int whitespaceCounter = 0;
+        for(int i = 0; i < line.length(); i++) {
+            if (Character.isWhitespace(line.charAt(i))) {
+                whitespaceCounter++;
+            }
+        }
+        if(whitespaceCounter > 3) {
+            System.out.println("Error: Detected an incorrectly formatted instruction - \"" + line + "\".");
+            throw new RuntimeException();
+        }
     }
 }

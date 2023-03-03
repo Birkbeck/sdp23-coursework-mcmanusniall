@@ -361,7 +361,5 @@ class Test {
         Instruction subtractInstruction = new sml.instruction.SubtractInstruction(null, resultRegisterName, sourceRegisterName);
         assertEquals("sub EAX ECX", subtractInstruction.toString());
     }
-
-
 }
 
