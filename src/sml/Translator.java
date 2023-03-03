@@ -56,10 +56,10 @@ public final class Translator {
     }
 
     /**
-     * Translates the current line into an instruction with the given label
+     * Translates the current line into an instruction with the given label.
      *
-     * @param label the instruction label
-     * @return the new instruction
+     * @param label the instruction label.
+     * @return the new instruction.
      * <p>
      * The input line should consist of a single SML instruction,
      * with its label already removed.
@@ -100,6 +100,14 @@ public final class Translator {
         }
     }
 
+    /**
+     * Dynamically gets the arguments from a given line in an SML program, given the constructor of the
+     * associated SML instruction.
+     *
+     * @param label the instruction label.
+     * @param constructor the constructor method for an SML instruction (subclass).
+     * @return An array of Objects (Object[]) containing the parameters for the related instruction.
+     */
     private Object[] getArguments(String label, Constructor<?> constructor) throws RuntimeException {
 
             ArrayList<Object> args = new ArrayList<>();

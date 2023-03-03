@@ -8,7 +8,7 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testFileExists() {
-        Translator t = new Translator("./program.txt");
+        Translator t = new Translator("./test/resources/programWithLegalInstructions.txt");
         Machine m = new Machine(new Registers());
         assertDoesNotThrow(() -> t.readAndTranslate(m.getLabels(), m.getProgram()));
     }
