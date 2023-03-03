@@ -1,17 +1,6 @@
 package sml;
 
-import org.junit.jupiter.api.BeforeEach;
-import sml.instruction.AddInstruction;
-import sml.instruction.PrintInstruction;
-
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -254,6 +243,7 @@ class Test {
             t.readAndTranslate(m.getLabels(), m.getProgram());
             m.execute();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         Registers registers = m.getRegisters();
 

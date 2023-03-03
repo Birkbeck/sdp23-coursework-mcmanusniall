@@ -54,6 +54,9 @@ public class Main {
 			System.out.println("Error: IO error when reading the program from " + args[0]);
 			System.exit(-1);
 		}
-//ins
+		catch(Exception e) {
+			System.out.println("Please revise your SML program before attempting to rerun.");
+			System.exit(-1);
+		}
 	}
 }

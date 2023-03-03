@@ -1,7 +1,5 @@
 package sml;
 
-import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +33,7 @@ public final class Translator {
      *
      * @param labels - empty HashMap object to store labels.
      * @param program - empty List to store <code>sml.Instruction</code> objects.
-     * @throws IOException
+     * @throws IOException - if input file is not found.
      */
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
         try(var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
@@ -73,8 +71,6 @@ public final class Translator {
 
         String instruction = line;
         String opcode = scan();
-        ArrayList<Object> args = new ArrayList<>();
-        args.add(label);
         Properties properties = new Properties();
 
         // Try with resources to access the key-value pairs (format: opcode-InstructionSubclass.class).
@@ -87,29 +83,10 @@ public final class Translator {
             Class<?> classObject = Class.forName(instructionSubclass);
             // Get the constructor.
             Constructor<?> constructor = classObject.getDeclaredConstructors()[0];
-
-            // Loop through the parameters, starting at the second to discard the label
-            for(int i = 1; i < constructor.getParameterCount(); i++) {
-                String arg = scan();
-                Class parameterType = constructor.getParameterTypes()[i];
-                if(parameterType == RegisterName.class){
-                    Register register = Register.valueOf(arg);
-                    args.add(register);
-                }
-                else if(parameterType == Integer.class){
-                    Integer integer = Integer.valueOf(arg);
-                    args.add(integer);
-                }
-                else if(parameterType == String.class){
-                    String string = String.valueOf(arg);
-                    args.add(string);
-                }
-            }
-
-            Object[] argsAsObjects = args.toArray();
-            Instruction ins = (Instruction) constructor.newInstance(argsAsObjects);
-
-            return ins;
+            // Get constructor arguments.
+            Object[] argsAsObjects = getArguments(label, constructor);
+            // Create an instruction object with the parameters.
+            return (Instruction) constructor.newInstance(argsAsObjects);
         }
         catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException |
                InvocationTargetException e) {
@@ -121,6 +98,31 @@ public final class Translator {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    private Object[] getArguments(String label, Constructor<?> constructor) throws RuntimeException {
+
+            ArrayList<Object> args = new ArrayList<>();
+            args.add(label);
+
+        // Loop through the parameters, starting at the second to discard the label.
+        for (int i = 1; i < constructor.getParameterCount(); i++) {
+            // Get the first argument.
+            String arg = scan();
+            // Get the first parameter (that is not the label).
+            Class<?> parameterType = constructor.getParameterTypes()[i];
+            if (parameterType == RegisterName.class) {
+                Register register = Register.valueOf(arg);
+                args.add(register);
+            } else if (parameterType == Integer.class) {
+                Integer integer = Integer.valueOf(arg);
+                args.add(integer);
+            } else if (parameterType == String.class) {
+                String string = String.valueOf(arg);
+                args.add(string);
+            }
+        }
+        return args.toArray();
     }
 
     /**
