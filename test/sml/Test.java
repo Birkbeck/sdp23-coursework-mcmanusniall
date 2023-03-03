@@ -5,7 +5,13 @@ import sml.instruction.AddInstruction;
 import sml.instruction.PrintInstruction;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -113,7 +119,7 @@ class Test {
         m.getLabels().addLabel("test", 0);
         // Create jnz Instruction
         Instruction jnzInstruction = new sml.instruction.JumpIfNotZeroInstruction(
-                "", sourceRegisterName,"test"
+                "", sourceRegisterName, "test"
         );
         // Test
         jnzInstruction.execute(m);
@@ -141,7 +147,7 @@ class Test {
         m.getLabels().addLabel("test", 0);
         // Create jnz Instruction
         Instruction jnzInstruction = new sml.instruction.JumpIfNotZeroInstruction(
-                "", sourceRegisterName,"test"
+                "", sourceRegisterName, "test"
         );
         jnzInstruction.execute(m);
         // Test
@@ -232,7 +238,7 @@ class Test {
 
     @org.junit.jupiter.api.Test
     public void testInstructionStructureIsCorrect() {
-    // TODO: test unknown instruction throws exception
+        // TODO: test unknown instruction throws exception
     }
 
     @org.junit.jupiter.api.Test
@@ -247,7 +253,8 @@ class Test {
         try {
             t.readAndTranslate(m.getLabels(), m.getProgram());
             m.execute();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         Registers registers = m.getRegisters();
 
         assertEquals(7, registers.get(Registers.Register.EAX));
@@ -305,5 +312,5 @@ class Test {
         // Test
         assertNotEquals(addInstruction, subtractInstruction);
     }
-
 }
+

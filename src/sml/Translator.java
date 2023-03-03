@@ -5,8 +5,11 @@ import sml.instruction.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
+import java.lang.reflect.*;
 
 import static sml.Registers.Register;
 
@@ -70,55 +73,52 @@ public final class Translator {
 
         String instruction = line;
         String opcode = scan();
+        ArrayList<Object> args = new ArrayList<>();
+        args.add(label);
+        Properties properties = new Properties();
 
-        try {
-            switch(opcode) {
-                case AddInstruction.OP_CODE -> {
-                    String r = scan();
-                    String s = scan();
-                    return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
-                }
-                case DivideInstruction.OP_CODE -> {
-                    String r = scan();
-                    String s = scan();
-                    return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
-                }
-                case JumpIfNotZeroInstruction.OP_CODE -> {
-                    String s = scan();
-                    String instructionLabel = scan();
-                    return new JumpIfNotZeroInstruction(label, Register.valueOf(s), instructionLabel);
-                }
-                case MoveInstruction.OP_CODE -> {
-                    String r = scan();
-                    Integer value = Integer.parseInt(scan());
-                    return new MoveInstruction(label, Register.valueOf(r), value);
-                }
-                case MultiplyInstruction.OP_CODE -> {
-                    String r = scan();
-                    String s = scan();
-                    return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
-                }
-                case PrintInstruction.OP_CODE -> {
-                    String s = scan();
-                    return new PrintInstruction(label, Register.valueOf(s));
-                }
-                case SubtractInstruction.OP_CODE -> {
-                    String r = scan();
-                    String s = scan();
-                    return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
-                }
-                // TODO: Then, replace the switch by using the Reflection API
+        // Try with resources to access the key-value pairs (format: opcode-InstructionSubclass.class).
+        try (var input = Translator.class.getResourceAsStream("/SMLinstructions.properties")) {
+            // Load key-value pairs into properties var.
+            properties.load(input);
+            // Get the name of the instruction subclass from the opcode key.
+            String instructionSubclass = properties.getProperty(opcode);
+            // Create new class object.
+            Class<?> classObject = Class.forName(instructionSubclass);
+            // Get the constructor.
+            Constructor<?> constructor = classObject.getDeclaredConstructors()[0];
 
-                // TODO: Next, use dependency injection to allow this machine class
-                //       to work with different sets of opcodes (different CPUs)
-
-                default -> {
-                    System.out.println("Error: Unknown operation \"" + opcode + "\" found.");
-                    throw new IllegalArgumentException();
+            // Loop through the parameters, starting at the second to discard the label
+            for(int i = 1; i < constructor.getParameterCount(); i++) {
+                String arg = scan();
+                Class parameterType = constructor.getParameterTypes()[i];
+                if(parameterType == RegisterName.class){
+                    Register register = Register.valueOf(arg);
+                    args.add(register);
+                }
+                else if(parameterType == Integer.class){
+                    Integer integer = Integer.valueOf(arg);
+                    args.add(integer);
+                }
+                else if(parameterType == String.class){
+                    String string = String.valueOf(arg);
+                    args.add(string);
                 }
             }
-        } catch(IllegalArgumentException e) {
+
+            Object[] argsAsObjects = args.toArray();
+            Instruction ins = (Instruction) constructor.newInstance(argsAsObjects);
+
+            return ins;
+        }
+        catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException |
+               InvocationTargetException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch(IllegalArgumentException e) {
             System.out.println("Error: \"" + instruction + "\" contains an illegal argument.");
+            e.printStackTrace();
             throw e;
         }
     }
