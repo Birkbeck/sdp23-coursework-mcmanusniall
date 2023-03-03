@@ -37,12 +37,11 @@ public class DivideInstruction extends Instruction {
     /**
      * Executes the instruction, dividing the contents of the first referenced register by the second and storing the
      * result in the first.
-     *
      * If the divider contains the value of 0, an <code>ArithmeticException</code> is thrown and the program exited.
      *
      * @param m the machine the instruction runs on.
      * @return NORMAL_PROGRAM_COUNTER_UPDATE - assures the program counter is increased by 1 if successful.
-     * @throws ArithmeticException
+     * @throws ArithmeticException - when dividing by 0.
      */
     @Override
     public int execute(Machine m) {

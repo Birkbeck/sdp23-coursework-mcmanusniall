@@ -1,12 +1,5 @@
 package sml;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Objects;
-
 /**
  * This class is an <code>abstract</code> class that models a Small Machine Language (SML) instruction.
  * Each <code>Instruction</code> is comprised of the fields:

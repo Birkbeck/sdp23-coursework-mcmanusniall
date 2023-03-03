@@ -35,16 +35,11 @@ public class Main {
 			System.out.println(m);
 
 			System.out.println("Beginning program execution.");
-			// TODO: remove try/catch as exceptions should be caught by line 48.
-			try {
-				m.execute();
-				System.out.println("Ending program execution.");
-				System.out.println("Values of registers at program termination:" + m.getRegisters() + ".");
-			}
-			catch(Exception e) {
-				System.out.println("Please revise your SML program before attempting to rerun.");
-				System.exit(-1);
-			}
+
+			m.execute();
+			System.out.println("Ending program execution.");
+			System.out.println("Values of registers at program termination:" + m.getRegisters() + ".");
+
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("Error: " + args[0] + " not found.");

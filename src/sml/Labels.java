@@ -26,9 +26,9 @@ public final class Labels {
 	/**
 	 * Adds a label with the associated address to the <code>Labels</code> HashMap.
 	 *
-	 * @param label the label
-	 * @param address the address the label refers to
-	 * @throws IllegalArgumentException
+	 * @param label the label.
+	 * @param address the address the label refers to.
+	 * @throws IllegalArgumentException - when label already exists
 	 */
 	public void addLabel(String label, int address) throws IllegalArgumentException {
 		Objects.requireNonNull(label);
@@ -43,10 +43,10 @@ public final class Labels {
 	/**
 	 * Returns the address associated with the label.
 	 *
-	 * @param label the label
-	 * @return the address the label refers to
-	 * @throws NullPointerException
-	 * @throws RuntimeException
+	 * @param label the label.
+	 * @return the address the label refers to.
+	 * @throws NullPointerException - when the label doesn't exist.
+	 * @throws RuntimeException - captures unexpected errors.
 	 */
 	public int getAddress(String label) {
 		// Where can NullPointerException be thrown here?

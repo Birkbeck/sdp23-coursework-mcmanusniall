@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
  * <code>HashMap<sml.Register, Integer></code>) that are accessed and referenced in a Small Machine Language (SML)
  * program. The key stores each unique <code>sml.Register</code> and the <code>Integer</code>
  * value stored within it (default = 0).
- *
  * The <code>sml.Registers</code> are defined by a <code>sml.RegisterName</code>. The <code>sml.RegisterName</code> is
  * limited to <code>EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI</code>.
  *
@@ -25,7 +24,7 @@ public final class Registers {
     private final Map<Register, Integer> registers = new HashMap<>();
 
     public enum Register implements RegisterName {
-        EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI;
+        EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI
     }
     /**
      * Clears the registers, setting their value to 0.
